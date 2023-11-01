@@ -85,6 +85,17 @@ main {
   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
+.upload-card{
+  background: #f0f7f4;
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #000;
+  
+}
+
 
 .card img {
   object-fit: cover;

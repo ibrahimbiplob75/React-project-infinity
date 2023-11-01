@@ -92,6 +92,7 @@ const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
       onClick={handleCardClick}
     >
       <img src={src} alt={title} />
+     
     </div>
   );
 };
@@ -154,6 +155,9 @@ const App = () => {
             />
           ))
         )}
+        <div className="upload-card">
+          <h2 >Upload file</h2>
+        </div>
       </main>
     </diV>
   );
