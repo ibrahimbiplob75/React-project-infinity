@@ -1,13 +1,16 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import PropTypes from "prop-types";
-
+import { ToastContainer, toast } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
 import galleryList from "../src/Components/data.js";
 import logo from "../src/assets/logo.png";
 
 
 
+
 const Header = ({ selectedCount, deleteSelected }) => {
+  
   return (
     <header>
       {selectedCount === 0 ? (
@@ -15,9 +18,14 @@ const Header = ({ selectedCount, deleteSelected }) => {
       ) : (
         <div className="header">
           <h1>{selectedCount} Files Selected</h1>
-          <button className="flex btn" onClick={deleteSelected}>
+          <button
+            className="flex btn"
+            onClick={deleteSelected}
+          >
             Delete
           </button>
+          
+          
         </div>
       )}
     </header>
@@ -28,6 +36,8 @@ const Header = ({ selectedCount, deleteSelected }) => {
 const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
   const ref = React.useRef(null);
 
+  const notify = () => toast("Item's are selected !");
+  
 
   const [, drop] = useDrop({
     accept: "image",
@@ -80,6 +90,7 @@ const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
   drag(drop(ref));
 
   const handleCardClick = () => {
+    notify("Card clicked!");
     toggleSelect(id); // Toggle the selected state of the card
   };
 
@@ -100,6 +111,7 @@ const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
 };
 
 const App = () => {
+  
   const [images, setImages] = React.useState(galleryList);
   const [selectedCount, setSelectedCount] = React.useState(0);
 
@@ -139,6 +151,7 @@ const App = () => {
 
   //Deeleting Image
   const deleteSelected = () => {
+     
     const updatedImages = images.filter((image) => {
       // Keep the images that are not selected
       return !selectedImages.find((selected) => selected.id === image.id)
@@ -154,7 +167,9 @@ const App = () => {
         selected: false,
       }))
     );
+    
     setSelectedCount(0);
+    
   };
 
   return (
@@ -180,9 +195,11 @@ const App = () => {
             />
           ))
         )}
+
         <div className="upload-card">
           <h2>Upload file</h2>
         </div>
+        <ToastContainer />
       </main>
     </div>
   );
