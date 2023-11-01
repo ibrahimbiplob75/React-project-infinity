@@ -6,7 +6,8 @@ import galleryList from "../src/Components/data.js";
 import logo from "../src/assets/logo.png";
 
 
-const Header = ({ selectedCount }) => {
+
+const Header = ({ selectedCount, deleteSelected }) => {
   return (
     <header>
       {selectedCount === 0 ? (
@@ -14,8 +15,8 @@ const Header = ({ selectedCount }) => {
       ) : (
         <div className="header">
           <h1>{selectedCount} Files Selected</h1>
-          <button  className="flex btn">
-            Delet
+          <button className="flex btn" onClick={deleteSelected}>
+            Delete
           </button>
         </div>
       )}
@@ -26,6 +27,7 @@ const Header = ({ selectedCount }) => {
 
 const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
   const ref = React.useRef(null);
+
 
   const [, drop] = useDrop({
     accept: "image",
@@ -88,11 +90,11 @@ const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
         opacity,
         border: selected ? "2px solid red" : "2px solid transparent",
       }}
+      // className={`card ${featured ? "featured" : ""}`}
       className="card"
       onClick={handleCardClick}
     >
       <img src={src} alt={title} />
-     
     </div>
   );
 };
@@ -134,9 +136,30 @@ const App = () => {
     });
   };
 
+
+  //Deeleting Image
+  const deleteSelected = () => {
+    const updatedImages = images.filter((image) => {
+      // Keep the images that are not selected
+      return !selectedImages.find((selected) => selected.id === image.id)
+        ?.selected;
+    });
+
+    setImages(updatedImages);
+
+    // Clear the selection after deletion
+    setSelectedImages(
+      selectedImages.map((image) => ({
+        id: image.id,
+        selected: false,
+      }))
+    );
+    setSelectedCount(0);
+  };
+
   return (
-    <diV>
-      <Header selectedCount={selectedCount} />
+    <div>
+      <Header selectedCount={selectedCount} deleteSelected={deleteSelected} />
 
       <main>
         {React.Children.toArray(
@@ -152,14 +175,16 @@ const App = () => {
                   ?.selected
               }
               toggleSelect={toggleSelect}
+              return
+              featured={index === 0}
             />
           ))
         )}
         <div className="upload-card">
-          <h2 >Upload file</h2>
+          <h2>Upload file</h2>
         </div>
       </main>
-    </diV>
+    </div>
   );
 };
 Card.propTypes = {
@@ -167,13 +192,16 @@ Card.propTypes = {
   title: PropTypes.string,
   id: PropTypes.number,
   index: PropTypes.number,
-  selected:PropTypes.bool,
-  toggleSelect:PropTypes.bool,
+  selected: PropTypes.bool, // Correct if it's supposed to be a boolean
+  toggleSelect: PropTypes.func, // Correct to PropTypes.func
   moveImage: PropTypes.func,
+  
 };
+
 
 Header.propTypes = {
   selectedCount: PropTypes.number,
+  deleteSelected: PropTypes.func,
 };
 
 export default App;
