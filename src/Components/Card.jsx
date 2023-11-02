@@ -78,12 +78,21 @@ const Card = ({
       ref={ref}
       style={{
         opacity,
-        border: selected ? "2px solid red" : "2px solid transparent",
+        border: selected ? "2px solid black" : "2px solid transparent",
       }}
-        className={`card ${featured ? "featured" : ""}`}
-        onClick={handleCardClick}
+      className={`card ${selected ? "checked" : ""}`}
+      onClick={handleCardClick}
     >
-      <img src={src} alt={title} />
+      <div className="container">
+        <label className="option_item"></label>
+        {
+          selected ? <input type="checkbox" checked className="checkbox"></input> : ""
+        }
+        
+        <div className="option_inner">
+          <img src={src} alt={title} />
+        </div>
+      </div>
     </div>
   );
 };

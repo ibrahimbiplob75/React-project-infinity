@@ -88,6 +88,17 @@ const App = () => {
               toggleSelect={toggleSelect}
               return
               featured={index === 0}
+
+              //woking on checked
+              className={
+                selectedImages.find((selected) => selected.id === image.id)
+                  ?.selected
+                  ? "card checked"
+                  : "card"
+              }
+
+
+              
             />
           ))
         )}
