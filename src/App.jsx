@@ -1,114 +1,10 @@
 import React from "react";
-import { useDrag, useDrop } from "react-dnd";
-import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
- import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import galleryList from "../src/Components/data.js";
-import logo from "../src/assets/logo.png";
+import Header from "../src/Components/Header.jsx"
+import { ToastContainer } from "react-toastify";
+import Card from "./Components/Card.jsx";
 
-
-
-
-const Header = ({ selectedCount, deleteSelected }) => {
-  
-  return (
-    <header>
-      {selectedCount === 0 ? (
-        <img src={logo} alt="" />
-      ) : (
-        <div className="header">
-          <h1>{selectedCount} Files Selected</h1>
-          <button
-            className="flex btn"
-            onClick={deleteSelected}
-          >
-            Delete
-          </button>
-          
-          
-        </div>
-      )}
-    </header>
-  );
-};
-
-
-const Card = ({ src, title, id, index, moveImage, selected, toggleSelect }) => {
-  const ref = React.useRef(null);
-
-  const notify = () => toast("Item's are selected !");
-  
-
-  const [, drop] = useDrop({
-    accept: "image",
-    hover: (item, monitor) => {
-      if (!ref.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-
-      moveImage(dragIndex, hoverIndex);
-
-      item.index = hoverIndex;
-    },
-  });
-
-  const [{ isDragging }, drag] = useDrag({
-    type: "image",
-    item: () => {
-      return { id, index };
-    },
-    collect: (monitor) => {
-      return {
-        isDragging: monitor.isDragging(),
-      };
-    },
-  });
-
-  const opacity = isDragging ? 0 : 1;
-  drag(drop(ref));
-
-  const handleCardClick = () => {
-    notify("Card clicked!");
-    toggleSelect(id); // Toggle the selected state of the card
-  };
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity,
-        border: selected ? "2px solid red" : "2px solid transparent",
-      }}
-      // className={`card ${featured ? "featured" : ""}`}
-      className="card"
-      onClick={handleCardClick}
-    >
-      <img src={src} alt={title} />
-    </div>
-  );
-};
 
 const App = () => {
   
@@ -204,21 +100,6 @@ const App = () => {
     </div>
   );
 };
-Card.propTypes = {
-  src: PropTypes.string,
-  title: PropTypes.string,
-  id: PropTypes.number,
-  index: PropTypes.number,
-  selected: PropTypes.bool, // Correct if it's supposed to be a boolean
-  toggleSelect: PropTypes.func, // Correct to PropTypes.func
-  moveImage: PropTypes.func,
-  
-};
 
-
-Header.propTypes = {
-  selectedCount: PropTypes.number,
-  deleteSelected: PropTypes.func,
-};
 
 export default App;

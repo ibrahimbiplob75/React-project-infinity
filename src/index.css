@@ -72,17 +72,28 @@ picture {
   justify-content: space-between;
 }
 
+
+
 main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  gap: 2rem;
-  cursor: pointer;
-  padding: 1.5em 0;
+      display: grid;
+        grid-template-rows:
+          repeat(4, auto);
+        grid-template-columns:
+          repeat(5, 1fr);
+        grid-gap: 10px;
+  
+}
+.card:nth-child(1) {
+  margin-top: auto;
+  grid-row: span 2;
+  grid-column: span 2;
 }
 
+
 .card {
-  background: var(--bg-colour);
-  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+   /* background: var(--bg-colour); */
+   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1); 
+   height: fit-content;
   border-radius: 5px;
 }
 .upload-card{
@@ -90,6 +101,7 @@ main {
   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   display: flex;
+  height: auto;
   justify-content: center;
   align-items: center;
   border: 2px dashed #000;
@@ -114,6 +126,8 @@ main {
   font-size: 1.5rem;
   font-family: "Libre Baskerville", serif;
 }
+
+
 
 
 
