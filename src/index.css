@@ -25,7 +25,7 @@ picture {
   margin: 0;
 }
 body{
-  margin: 20px;
+  margin: 30px;
 }
 
 h1,
@@ -40,11 +40,10 @@ p {
 
 body {
   line-height: 1.5;
-  /*min-height: 100vh;*/
   font-family: "Mulish", sans-serif;
 }
 
-/* make images easier to work with */
+
 img,
 picture {
   max-width: 100%;
@@ -75,6 +74,7 @@ picture {
 
 
 main {
+  
       display: grid;
         grid-template-rows:
           repeat(4, auto);
@@ -91,17 +91,18 @@ main {
 
 
 .card {
-   /* background: var(--bg-colour); */
-   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1); 
-   height: fit-content;
-  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1); 
+    height: fit-content;
+    border-radius: 5px;
+  
 }
 .upload-card{
   background: #f0f7f4;
   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   display: flex;
-  height: auto;
   justify-content: center;
   align-items: center;
   border: 2px dashed #000;
